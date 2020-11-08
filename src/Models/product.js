@@ -29,7 +29,19 @@ const productModels ={
         }
       })
     })
-  }
+  },
+  deleteProduct : (query)=>{
+    return new Promise((resolve,reject)=>{
+      const queryString ='DELETE FROM products WHERE id=?';
+      connection.query(queryString,[query.id],(error,results)=>{
+          if(!error){
+              resolve(results);
+          }else{
+              reject(error);
+          }
+      })
+    });
+  },
 }
 
 module.exports = productModels; 

@@ -22,7 +22,16 @@ const productControllers ={
     .catch((error)=>{
         formResponse.err(res,error,500);
     })
-  }
+  },
+  deleteProduct:(req,res)=>{
+    productModels
+    .deleteProduct(req.query)
+    .then((results)=>{
+        formResponse.success(res,results,200);
+    }).catch((error)=>{
+        formResponse.err(res,error,500);
+    })
+  },
 }
 
 module.exports = productControllers;
