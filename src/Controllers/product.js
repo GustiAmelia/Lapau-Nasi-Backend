@@ -32,6 +32,15 @@ const productControllers ={
         formResponse.err(res,error,500);
     })
   },
+  updateProduct:(req,res)=>{
+    productModels
+    .updateProduct(req.body)
+    .then((results)=>{
+        formResponse.success(res,req.body,200);
+    }).catch((error)=>{
+        formResponse.err(res,error,500);
+    })
+  },
 }
 
 module.exports = productControllers;

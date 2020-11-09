@@ -19,7 +19,7 @@ const productModels ={
   getAllProduct : (page,limit)=>{
     return new Promise ((resolve,reject)=>{
       const offset = (page-1)*limit;
-      const queryString =`SELECT p1.id, product_name ,product_image AS image, price, category FROM products AS p1 INNER JOIN categories AS p2 ON p1.category_id = p2.id LIMIT ? OFFSET ?`;
+      const queryString =`SELECT p1.id, product_name ,product_image AS image, price, category,p2.id AS category_id FROM products AS p1 INNER JOIN categories AS p2 ON p1.category_id = p2.id LIMIT ? OFFSET ?`;
       connection.query(queryString,[Number(limit),offset],(error,results)=>{
         if(!error){
           resolve(results)
@@ -42,6 +42,19 @@ const productModels ={
       })
     });
   },
+  updateProduct :(body)=>{
+    return new Promise((resolve,reject)=>{
+      const { id } = body;
+      const queryString = `UPDATE products SET ? WHERE products.id=?`;
+      connection.query(queryString,[body, body.id],(error,results)=>{
+          if(!error){
+              resolve(results);
+          }else{
+              reject(error);
+          }
+      });
+    });
+},
 }
 
 module.exports = productModels; 
